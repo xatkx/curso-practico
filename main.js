@@ -29,12 +29,17 @@ function mobileMenuF(event){
     if(mobileMenu.classList.contains('hidden'))
     {
         mobileMenu.classList.remove('hidden')
+        product_detail.classList.add('hidden')
     } else 
     {
         mobileMenu.classList.toggle('hidden')
     }
 }
 function productDetailF(event){
+    if(!mobileMenu.classList.contains('hidden')){
+        mobileMenu.classList.add('hidden')
+    }
+
     product_detail.classList.toggle('hidden')
 }
 
@@ -44,69 +49,19 @@ emailMenu.addEventListener('click',emailMenuF);
 btnMenuMobile.addEventListener('click', mobileMenuF);
 
 
-let productList = [
-    {
-        name: 'bike',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 9200
-    },
-    {
-        name: 'bike',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 1200
-    },
-    {
-        name: 'iphone',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 90
-    },
-    {
-        name: 'tv',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 200
-    },
-    {
-        name: 'sayayin',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 298700
-    },{
-        name: 'tv',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 200
-    },
-    {
-        name: 'tv',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 200
-    },
-    {
-        name: 'tv',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 200
-    },
-    {
-        name: 'tv',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 200
-    },
-    {
-        name: 'tv',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 200
-    },
-    {
-        name: 'tv',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 200
-    },
-    {
-        name: 'tv',
-        img: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        price: 200
-    },
-]
+let productList = fetch('./dataBase.json').then( productos => {
+    return productos.json()
+}).then( list => {
+    list.forEach( pro => {
+        containerCard.appendChild(productListRender(pro))
+    } )
+})
 
-function productos(json){
+
+
+
+
+function productListRender(json){
 
     let imgA = './icons/bt_add_to_cart.svg'
 
@@ -148,11 +103,6 @@ function productos(json){
     return producto
 
 }
-
-productList.forEach( pro => {
-    containerCard.appendChild(productos(pro))
-} )
-
 
 // for (const product of productList) {
 // containerCard.appendChild(productos(product))
